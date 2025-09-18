@@ -1,0 +1,5 @@
+1. How do I join the weekly office hours?
+2. What is the deadline and submission format for the project?
+3. Who provides the Discord bot token and how do I request it?
+4. Which documents are the official knowledge base for the bot?
+5. How do I get help if I run into infra or permission issues?

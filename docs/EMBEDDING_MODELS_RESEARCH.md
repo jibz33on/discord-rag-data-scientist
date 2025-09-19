@@ -49,7 +49,7 @@ Highlight strengths, weaknesses, typical use cases, and an evaluation plan so yo
 
 ---
 
-## Comparison table (fill in after experiments)
+## Comparison table 
 
 | Model                        | Dim  | Size  | Latency (ms/q) | Recall@5 |   MRR | Cost (est) | License  | Notes |
 |-------------------------------|-----:|------:|---------------:|---------:|------:|-----------:|---------:|-------|
@@ -63,7 +63,7 @@ Highlight strengths, weaknesses, typical use cases, and an evaluation plan so yo
 | Cohere embeddings             | 1024+| API   |               - |       -  |    -  | $$ / API   | API-only | Multilingual, enterprise support |
 | Voyage AI embeddings          | 1024+| API   |               - |       -  |    -  | $$ / API   | API-only | Optimized for RAG, competitive with OpenAI |
 
-*(Replace “-” with measured values after your own evaluation.)*
+
 
 ---
 

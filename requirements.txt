@@ -1,0 +1,8 @@
+sentence-transformers
+numpy
+scikit-learn
+langchain
+langchain-text-splitters
+pymongo
+dnspython
+openai

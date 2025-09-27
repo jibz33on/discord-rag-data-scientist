@@ -1,5 +1,11 @@
-# Discord RAG - Data Scientist
+# RAG Chatbot — Discord Knowledge Base
 
-This repo is for the Data Scientist role in the Discord RAG FAQ Chatbot (Weeks 1–3).
-It will include document ingestion, embeddings, vector DB, retriever, and evaluation.
-Final deliverable: demo + GitHub repo + 2–4 minute video by Oct 6.
+A small Retrieval-Augmented Generation (RAG) demo using:
+- SentenceTransformers (all-MiniLM-L6-v2)
+- MongoDB Atlas (vector storage, with cosine fallback)
+- Azure OpenAI (GPT-3.5 Turbo) for generation
+
+Contents:
+- `Discord_Chatbot_clean.ipynb` — cleaned notebook (end-to-end pipeline)
+- `requirements.txt` — python dependencies
+- `README.md` — this file

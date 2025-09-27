@@ -1,5 +1,18 @@
-.env
+# Python
 __pycache__/
-.ipynb_checkpoints/
+*.py[cod]
+*.egg-info/
+env/
 venv/
-*.pyc
+instance/
+# Jupyter / Notebook checkpoints
+.ipynb_checkpoints
+# Colab / VS Code outputs / local data
+*.log
+.DS_Store
+# Large data / model artifacts (push manually if needed)
+data/
+models/
+# secrets / env
+*.env
+secrets.json

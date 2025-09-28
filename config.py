@@ -23,4 +23,3 @@ INDEX_NAME = os.getenv("INDEX_NAME")
 # Embeddings / Models
 MODEL_NAME = os.getenv("MODEL_NAME")
 EMBED_DIM = int(os.getenv("EMBED_DIM", 384))
-g

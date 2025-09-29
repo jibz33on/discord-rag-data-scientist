@@ -38,7 +38,6 @@ USER_PROMPT_TEMPLATE = (
     "ANSWER:"
 )
 
-
 # =========================
 # 3. Helper Functions
 # =========================

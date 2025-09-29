@@ -37,3 +37,9 @@ if __name__ == "__main__":
     vectors = embed_texts(sample)
     print("Embedding shape:", vectors.shape)
     print("First vector (preview):", vectors[0][:8])
+
+    try:
+        EMBED_DIM = int(vectors.shape[1])
+        print("Inferred EMBED_DIM from embeddings.py:", EMBED_DIM)
+    except Exception as e:
+        print("Could not infer EMBED_DIM:", e)

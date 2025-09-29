@@ -2,6 +2,7 @@
 
 from typing import Dict, List
 import config
+import re
 from backend.embeddings import embed_texts
 from backend import retrieval
 from backend import llm
@@ -11,18 +12,32 @@ from backend import llm
 # =========================
 # 1. Build context string
 # =========================
-def build_context_from_docs(docs: List[Dict], per_doc_chars: int = 400) -> str:
+def build_context_from_docs(docs: List[Dict], per_doc_chars: int = 1000) -> str:
     """
-    Assemble retrieved docs into a context string for the LLM.
+    Build a single context string from retrieved docs.
+    Keeps up to per_doc_chars characters but extends to finish the current sentence
+    (so we don't cut off useful sentences mid-way).
+    Returns a string like: "[source:doc_1] snippet...\n\n[source:doc_2] snippet..."
     """
     parts = []
     for d in docs:
         src = d.get("source") or f"doc_{d.get('_id')}"
-        text = d.get("text", "")
-        snippet = text.strip().replace("\n", " ")[:per_doc_chars]
-        parts.append(f"[source:{src}] {snippet}")
+        text = d.get("text", "") or ""
+        # normalize whitespace
+        snippet = re.sub(r'\s+', ' ', text).strip()
+        if len(snippet) <= per_doc_chars:
+            text_snippet = snippet
+        else:
+            head = snippet[:per_doc_chars]
+            tail = snippet[per_doc_chars:per_doc_chars + 1000]  # lookahead to complete sentence
+            m = re.search(r'([.!?])', tail)
+            if m:
+                end_idx = per_doc_chars + m.end()
+                text_snippet = snippet[:end_idx].strip()
+            else:
+                text_snippet = head.strip()
+        parts.append(f"[source:{src}] {text_snippet}")
     return "\n\n".join(parts)
-
 
 # =========================
 # 2. Full RAG pipeline

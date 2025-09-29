@@ -16,3 +16,4 @@ models/
 # secrets / env
 *.env
 secrets.json
+.env

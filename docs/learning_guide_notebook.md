@@ -57,20 +57,21 @@ Chunks created:
 Each chunk keeps:
     page_content = "chunk text"
     metadata = {"source": "doc_X", "doc_id": Y}
+🔹 Section 3: Embeddings
+Goal: Represent chunks as vectors.
 
----
+Use all-MiniLM-L6-v2 (SentenceTransformer).
 
-## 🔹 Section 3: Embeddings
+Each chunk → 384-dim embedding.
 
-**Goal:** Represent chunks as vectors.
+Collect all embeddings in doc_embeddings (matrix: num_chunks × 384).
 
-- Use `all-MiniLM-L6-v2` (SentenceTransformer).
-- Each chunk → 384-dim embedding.
-- Collect all embeddings in `doc_embeddings` (matrix: num_chunks × 384).
-- Pair embeddings back with chunk text + metadata to form `documents_to_insert`.
+Pair embeddings back with chunk text + metadata to form documents_to_insert.
 
-**Paper Sketch:**
-```text
+Paper Sketch:
+
+text
+Copy code
 [Chunk Texts]
      │
      ▼
@@ -88,20 +89,21 @@ documents_to_insert:
     ├─ {"_id": 0, "text": "Python...", "embedding": [...], "source": "doc_1"}
     ├─ {"_id": 1, "text": "Machine learning...", "embedding": [...], "source": "doc_2"}
     └─ {"_id": 2, "text": "Web development...", "embedding": [...], "source": "doc_3"}
+🔹 Section 4: MongoDB Atlas Integration
+Goal: Store vectors in a database and enable semantic search.
 
----
+Insert documents_to_insert into MongoDB Atlas.
 
-## 🔹 Section 4: MongoDB Atlas Integration
+Create a vector index (numDimensions = 384, metric = cosine).
 
-**Goal:** Store vectors in a database and enable semantic search.
+Run queries by embedding user input and searching with $vectorSearch.
 
-- Insert `documents_to_insert` into MongoDB Atlas.
-- Create a vector index (`numDimensions = 384`, metric = cosine).
-- Run queries by embedding user input and searching with `$vectorSearch`.
-- Retrieve top-k most similar chunks.
+Retrieve top-k most similar chunks.
 
-**Paper Sketch:**
-```text
+Paper Sketch:
+
+text
+Copy code
 Insert:
 [documents_to_insert] ──> MongoDB Collection
 
@@ -124,23 +126,27 @@ $vectorSearch in MongoDB
 Top-k docs returned:
     ├─ {"_id": 0, "text": "Python created by Guido...", "source": "doc_1", "score": 0.99}
     └─ {"_id": 3, "text": "Python emphasizes readability...", "source": "doc_1", "score": 0.87}
+🔹 Section 5: LLM Integration & Prompt Engineering
+Goal: Make the LLM answer only from retrieved context (avoid hallucination).
 
----
+Configure Azure OpenAI GPT-3.5 Turbo.
 
-## 🔹 Section 5: LLM Integration & Prompt Engineering
+Create prompts:
 
-**Goal:** Make the LLM answer only from retrieved context (avoid hallucination).
+System prompt → strict rules (only use provided context, cite sources, say “I don’t know” if missing).
 
-- Configure Azure OpenAI GPT-3.5 Turbo.
-- Create prompts:
-  - **System prompt** → strict rules (only use provided context, cite sources, say “I don’t know” if missing).
-  - **User prompt** → inserts `{context}` and `{question}`.
-- Build context from retrieved documents using `build_context_from_docs()`.
-- Call Azure GPT with `call_azure_chat()`.
-- `rag_query()` = retrieval → context → prompt → LLM → final answer with citations.
+User prompt → inserts {context} and {question}.
 
-**Paper Sketch:**
-```text
+Build context from retrieved documents using build_context_from_docs().
+
+Call Azure GPT with call_azure_chat().
+
+rag_query() = retrieval + context + prompt + LLM → answer.
+
+Paper Sketch:
+
+text
+Copy code
 User Question: "Who created Python?"
      │
      ▼
@@ -171,25 +177,26 @@ Azure GPT-3.5 Turbo
      ▼
 Answer:
 "Python was created by Guido van Rossum in 1991. [source:doc_1]"
+🔹 Section 6: Full RAG Pipeline
+Goal: Orchestrate the entire workflow into a single function.
 
----
+retrieve_docs_for_query() → embed query, run Atlas $vectorSearch, fallback if needed, normalize results.
 
-## 🔹 Section 6: Full RAG Pipeline
+build_rag_prompt() → build context string from retrieved docs + insert into system/user templates.
 
-**Goal:** Orchestrate the entire workflow into a single function.
+call_llm_for_rag() → wrapper around Azure GPT call.
 
-- **`retrieve_docs_for_query()`** → embed query, run Atlas `$vectorSearch`, fallback if needed, normalize results.  
-- **`build_rag_prompt()`** → build context string from retrieved docs + insert into system/user templates.  
-- **`call_llm_for_rag()`** → wrapper around Azure GPT call.  
-- **`run_rag_pipeline()`** → end-to-end: retrieve → prompt → LLM → extract sources → return structured result.
+run_rag_pipeline() → end-to-end: retrieve → prompt → LLM → extract sources → return structured result.
 
-**Paper Sketch:**
-```text
+Paper Sketch:
+
+text
+Copy code
 [User Question]
      │
      ▼
 retrieve_docs_for_query()
-   (embed query → Atlas vectorSearch → fallback cosine if needed)
+   (embed query → Atlas vectorSearch → fallback if needed)
      │
      ▼
 Top-k Docs (normalized: _id, text, source, score)
@@ -217,3 +224,27 @@ Return structured result:
   "sources": ["doc_1"],
   "context": "[source:doc_1] Python..."
 }
+✅ Final Overview (End-to-End)
+Full pipeline in one sketch:
+
+text
+Copy code
+[Raw Docs] 
+     ▼
+LangChain Documents
+     ▼
+Chunking & Splitting
+     ▼
+Embeddings (MiniLM, 384-dim)
+     ▼
+MongoDB Atlas (vector index)
+     ▼
+User Query → Embed
+     ▼
+MongoDB $vectorSearch → Top-k Docs
+     ▼
+Context Builder → Prompt
+     ▼
+Azure GPT-3.5 Turbo
+     ▼
+Answer (grounded + citations)

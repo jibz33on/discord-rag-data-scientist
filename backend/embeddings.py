@@ -5,7 +5,6 @@ os.environ["OMP_NUM_THREADS"] = "1"
 os.environ["MKL_NUM_THREADS"] = "1"
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
-# backend/embeddings.py
 
 from sentence_transformers import SentenceTransformer
 import config
@@ -14,7 +13,7 @@ import config
 _model = None  
 
 def get_model():
-    """Lazy-load the embedding model (only once)."""
+    """load the embedding model."""
     global _model
     if _model is None:
         _model = SentenceTransformer(config.MODEL_NAME)

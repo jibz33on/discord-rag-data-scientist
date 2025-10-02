@@ -1,0 +1,66 @@
+[
+  {
+    "query": "Who created Python?",
+    "answer": "Python was created by Guido van Rossum in 1991 [source:doc_1].",
+    "docs_preview": [
+      "Python Programming Language Overview:\n    Python is a high-level, interpreted programming language created by Guido van Rossum in 1991.\n    It emphasizes code readability with its notable use of significant whitespace.\n    Python supports multiple programming paradigms including procedural, object-o",
+      "Discord Bot Development:\n    Discord bots are applications that can interact with Discord servers automatically.\n    They can respond to messages, moderate chat, play music, and perform various automated tasks.\n    Discord bots are built using Discord's API and can be developed in multiple programmi",
+      "Web Development Technologies:\n    Web development involves creating websites and web applications using various technologies.\n    Frontend development focuses on user interfaces using HTML, CSS, and JavaScript.\n    Backend development handles server-side logic, databases, and APIs using languages li",
+      "[source:doc_1] Python Programming Language Overview: Python is a high-level, interpreted programming language created by Guido van Rossum in 1991. It emphasizes code readability with its notable use of significant whitespace. Python supports multiple programming paradigms including procedural, objec",
+      "doc_1"
+    ],
+    "expected_keywords": [
+      "Guido",
+      "1991"
+    ],
+    "expected_match": true,
+    "token_overlap": 0.9091
+  },
+  {
+    "query": "What is machine learning?",
+    "answer": "Machine learning is a subset of artificial intelligence that enables computers to learn from data automatically. It includes supervised learning, unsupervised learning, and reinforcement learning [source:doc_2].",
+    "docs_preview": [
+      "Machine Learning and Artificial Intelligence:\n    Machine learning is a subset of artificial intelligence that enables computers to learn from data automatically.\n    There are three main types of machine learning: supervised learning, unsupervised learning, and reinforcement learning.\n    Supervise",
+      "Web Development Technologies:\n    Web development involves creating websites and web applications using various technologies.\n    Frontend development focuses on user interfaces using HTML, CSS, and JavaScript.\n    Backend development handles server-side logic, databases, and APIs using languages li",
+      "Python Programming Language Overview:\n    Python is a high-level, interpreted programming language created by Guido van Rossum in 1991.\n    It emphasizes code readability with its notable use of significant whitespace.\n    Python supports multiple programming paradigms including procedural, object-o",
+      "[source:doc_2] Machine Learning and Artificial Intelligence: Machine learning is a subset of artificial intelligence that enables computers to learn from data automatically. There are three main types of machine learning: supervised learning, unsupervised learning, and reinforcement learning. Superv",
+      "doc_2"
+    ],
+    "expected_keywords": [
+      "data",
+      "learn"
+    ],
+    "expected_match": true,
+    "token_overlap": 0.963
+  },
+  {
+    "query": "What are Discord bots?",
+    "answer": "Discord bots are applications that can interact with Discord servers automatically, performing tasks like responding to messages, moderating chat, playing music, and more. They are built using Discord's API and can be developed in various programming languages like Python using libraries such as discord.py [source:doc_4].",
+    "docs_preview": [
+      "Discord Bot Development:\n    Discord bots are applications that can interact with Discord servers automatically.\n    They can respond to messages, moderate chat, play music, and perform various automated tasks.\n    Discord bots are built using Discord's API and can be developed in multiple programmi",
+      "Machine Learning and Artificial Intelligence:\n    Machine learning is a subset of artificial intelligence that enables computers to learn from data automatically.\n    There are three main types of machine learning: supervised learning, unsupervised learning, and reinforcement learning.\n    Supervise",
+      "Python Programming Language Overview:\n    Python is a high-level, interpreted programming language created by Guido van Rossum in 1991.\n    It emphasizes code readability with its notable use of significant whitespace.\n    Python supports multiple programming paradigms including procedural, object-o",
+      "[source:doc_4] Discord Bot Development: Discord bots are applications that can interact with Discord servers automatically. They can respond to messages, moderate chat, play music, and perform various automated tasks. Discord bots are built using Discord's API and can be developed in multiple progra",
+      "doc_4"
+    ],
+    "expected_keywords": [
+      "Discord",
+      "bot"
+    ],
+    "expected_match": true,
+    "token_overlap": 0.8958
+  },
+  {
+    "query": "Who is Elon Musk?",
+    "answer": "I don't know.",
+    "docs_preview": [
+      "Discord Bot Development:\n    Discord bots are applications that can interact with Discord servers automatically.\n    They can respond to messages, moderate chat, play music, and perform various automated tasks.\n    Discord bots are built using Discord's API and can be developed in multiple programmi",
+      "Python Programming Language Overview:\n    Python is a high-level, interpreted programming language created by Guido van Rossum in 1991.\n    It emphasizes code readability with its notable use of significant whitespace.\n    Python supports multiple programming paradigms including procedural, object-o",
+      "Machine Learning and Artificial Intelligence:\n    Machine learning is a subset of artificial intelligence that enables computers to learn from data automatically.\n    There are three main types of machine learning: supervised learning, unsupervised learning, and reinforcement learning.\n    Supervise",
+      "[source:doc_4] Discord Bot Development: Discord bots are applications that can interact with Discord servers automatically. They can respond to messages, moderate chat, play music, and perform various automated tasks. Discord bots are built using Discord's API and can be developed in multiple progra"
+    ],
+    "expected_keywords": [],
+    "expected_match": true,
+    "token_overlap": 0.0
+  }
+]

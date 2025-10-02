@@ -1,0 +1,6 @@
+[
+  {"query": "Who created Python?", "expected_keywords": ["Guido", "1991"]},
+  {"query": "What is machine learning?", "expected_keywords": ["data", "learn"]},
+  {"query": "What are Discord bots?", "expected_keywords": ["Discord", "bot"]},
+  {"query": "Who is Elon Musk?", "expected_keywords": []}
+]

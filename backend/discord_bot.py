@@ -23,6 +23,25 @@ MIN_WORDS = 2                         # ignore tiny messages
 MAX_MESSAGE_CHARS = 1900
 # ----------------------------
 
+# Customize your knowledge domain here
+CONTEXT_DESCRIPTION = "Python, Machine Learning, Web Development, and Discord"
+EXAMPLE_QUERIES = [
+    "How do I create a virtual environment in Python?",
+    "What's overfitting in machine learning?",
+    "How do I create a REST API with Flask?",
+    "How do I add slash commands to a Discord bot?"
+]
+
+# Fallback response when question is outside the knowledge base
+FALLBACK_RESPONSE = (
+    "I couldn’t find an answer to that. 🤔\n\n"
+    f"My knowledge base contains information about **{CONTEXT_DESCRIPTION}**.\n"
+    "Please ask something related to these topics. For example:\n"
+    f"- {EXAMPLE_QUERIES[0]}\n"
+    f"- {EXAMPLE_QUERIES[1]}\n"
+    f"- {EXAMPLE_QUERIES[2]}"
+)
+
 # simple in-memory cooldown store (demo use)
 _user_cooldowns = {}
 
@@ -101,14 +120,14 @@ async def on_message(message):
     last = _user_cooldowns.get(message.author.id, 0)
     if now - last < COOLDOWN_SECONDS:
         # gentle rate-limit; avoid spamming LLM and keep demo smooth
-        await message.channel.send("⚠️ Please wait a few seconds before asking again.")
+        await message.channel.send("Please wait a few seconds before asking again.")
         return
     _user_cooldowns[message.author.id] = now
 
     # extract question text after prefix
     question = message.content[len(prefix_used):].strip()
     if not question or len(question.split()) < MIN_WORDS:
-        await message.channel.send("⚠️ Please provide a short question (at least a couple of words). E.g. `!ask Who created Python?`")
+        await message.channel.send(" Please provide a short question (at least a couple of words). E.g. `!ask Who created Python?`")
         return
 
     try:
@@ -151,10 +170,21 @@ async def on_message(message):
 
         # final fallback
         if answer is None:
-            answer = "I don't know."
+            # Use fallback redirect instead of "I don't know."
+            answer_text = FALLBACK_RESPONSE
+        else:
+            # Clean the answer text (strip source tokens, remove 'Sources:' lines, trim)
+            answer_text = _clean_answer_text(str(answer))
 
-        # Clean the answer text (strip source tokens, remove 'Sources:' lines, trim)
-        answer_text = _clean_answer_text(str(answer))
+            # Heuristic: treat very short / generic "I don't know" style replies as out-of-context
+            lower_ans = answer_text.lower().strip()
+            weak_responses = {
+                "i don't know", "i don't know.", "i am not sure", "i'm not sure",
+                "no idea", "sorry, i don't know", "i don't have that information"
+            }
+            # if answer is too short or matches weak patterns, replace with FALLBACK_RESPONSE
+            if (len(answer_text) < 5) or (lower_ans in weak_responses):
+                answer_text = FALLBACK_RESPONSE
 
         # safety truncation
         if len(answer_text) > MAX_MESSAGE_CHARS:

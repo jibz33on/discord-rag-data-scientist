@@ -44,3 +44,4 @@ To ensure our RAG chatbot works correctly and reliably, we implemented a **basic
 
 👉 This shows that our chatbot is not only functional but also **trustworthy and robust**.  
 
+![Folder Diagram](diagrams/architectural_diagram.png)

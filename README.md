@@ -303,6 +303,10 @@ Additional documentation is available in the `docs/` directory:
 - **learning_guide.md** - Learning resources and guides (Notebook)
 - **BLOCKERS.md** - Development challenges and solutions
 
+## 📊 Presentation
+
+View the project presentation: [Discord RAG Bot Presentation](presentation/Discord_RAG_Bot_Presentation.pdf)
+
 ---
 
 ## 🎯 Key Takeaways

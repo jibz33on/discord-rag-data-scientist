@@ -87,7 +87,6 @@ The system follows a three-tier architecture:
 | **MongoDB Atlas** | Vector database for semantic search and efficient similarity retrieval |
 | **Azure OpenAI GPT-3.5 Turbo** | Language model for context-aware answer generation |
 | **Discord.py** | Bot framework with real-time user interaction |
-| **FAISS** | Vector similarity search |
 | **LangChain** | LLM orchestration and text processing |
 
 ---
